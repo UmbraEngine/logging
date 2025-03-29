@@ -1,0 +1,39 @@
+cmake_minimum_required(VERSION 3.31.6)
+
+project(UmbraLogging VERSION 1.0.0)
+
+add_library(UmbraLogging STATIC
+  src/log.cpp
+  src/logger.cpp
+)
+
+include(GNUInstallDirs)
+
+target_include_directories(UmbraLogging PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+add_compile_definitions(UMBRA_BUILD_DLL)
+
+target_compile_features(UmbraLogging PRIVATE cxx_std_20)
+
+target_precompile_headers(UmbraLogging PRIVATE include/pch.h)
+
+# Allow installation
+install(TARGETS UmbraLogging
+  EXPORT UmbraLoggingTargets
+  ARCHIVE DESTINATION lib
+)
+
+install(DIRECTORY include/ DESTINATION include)
+install(EXPORT UmbraLoggingTargets
+  FILE UmbraLoggingTargets.cmake
+  NAMESPACE Umbra::
+  DESTINATION lib/cmake/UmbraLogging
+)
+install(FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/core.h
+  DESTINATION include/UmbraLogging
+
+)
