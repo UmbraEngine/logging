@@ -37,3 +37,11 @@ install(FILES
   DESTINATION include/UmbraLogging
 
 )
+
+# Setup system link to compile_commands directory for LSP config In NeoVim.
+# This needs additional setup in the LspConfig file in the NeoVim config directory
+# If you are not using NeoVim, you can remove this.
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ln -sf ${CMAKE_BINARY_DIR}/compile_commands.json ~/.config/clangd/compile_commands/compile_commands.json
+)
