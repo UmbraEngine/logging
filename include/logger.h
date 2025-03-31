@@ -100,7 +100,7 @@ class Logger {
   template <typename... Args>
   void logFormattedString(LogLevel level, std::string_view message, Args&&... args)
   {
-    std::string formattedString = std::format(message, std::forward<Args>(args)...);
+    std::string formattedString = std::format(std::string(message), std::forward<Args>(args)...);
     this->log(level, formattedString);
   };
 
