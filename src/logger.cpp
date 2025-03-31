@@ -100,6 +100,21 @@ std::string Logger::getTimestamp()
   return std::string(timestamp);
 }
 
+void Logger::log(LogLevel level, std::string_view formattedMessage)
+{
+  if (Logger::shouldLogMessage(level)) {
+    std::string levelString = this->getLevelString(level);
+    std::string loggerName = "[" + this->name + "] ";
+    std::string timestamp = this->getTimestamp();
+    if (this->logFile.is_open()) {
+      this->logFile << timestamp << loggerName << levelString << formattedMessage << std::endl;
+    }
+    this->setColor(level);
+    std::cout << timestamp << loggerName << levelString << formattedMessage << std::endl;
+    this->resetColor();
+  }
+}
+
 bool Logger::shouldLogMessage(LogLevel level) const
 {
   if (this->debugEnabled) {
