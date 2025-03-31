@@ -14,10 +14,11 @@ namespace Logging {
 std::shared_ptr<Logger> Log::CoreLogger;
 std::shared_ptr<Logger> Log::ClientLogger;
 
-void Log::init() {
+void Log::init()
+{
   CoreLogger = std::make_shared<Logger>("Umbra", true);
   ClientLogger = std::make_shared<Logger>("Client", true);
 }
 
-} // namespace Logging
-} // namespace Umbra
+}  // namespace Logging
+}  // namespace Umbra
