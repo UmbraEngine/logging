@@ -100,7 +100,10 @@ class Logger {
   template <typename... Args>
   void logFormattedString(LogLevel level, std::string_view message, Args&&... args)
   {
-    std::string formattedString = std::format(std::string(message), std::forward<Args>(args)...);
+    std::ostringstream oss;
+    oss << std::vformat(std::string(message), std::make_format_args(std::forward<Args>(args)...));
+    std::string formattedString = oss.str();
+
     this->log(level, formattedString);
   };
 
