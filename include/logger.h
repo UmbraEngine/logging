@@ -1,5 +1,8 @@
 #pragma once
 
+#include "core.h"
+#include "pch.h"
+
 const int LOG_LEVEL_TRACE = 0;
 const int LOG_LEVEL_DEBUG = 1;
 const int LOG_LEVEL_INFO = 2;
