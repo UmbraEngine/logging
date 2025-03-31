@@ -103,13 +103,13 @@ class Logger {
     if (Logger::shouldLogMessage(level)) {
       std::string levelString = this->getLevelString(level);
       std::string loggerName = "[" + this->name + "] ";
+      std::string formattedString = std::format(message, std::forward<Args>(args)...);
+      std::string timestamp = this->getTimestamp();
       if (this->logFile.is_open()) {
-        this->logFile << this->getTimestamp() << loggerName << levelString
-                      << std::format(message, std::forward<Args>(args)...) << std::endl;
+        this->logFile << timestamp << loggerName << levelString << formattedString << std::endl;
       }
       Logger::setColor(level);
-      std::cout << this->getTimestamp() << loggerName << levelString
-                << std::format(message, std::forward<Args>(args)...) << std::endl;
+      std::cout << timestamp << loggerName << levelString << formattedString << std::endl;
       Logger::resetColor();
     }
   };
