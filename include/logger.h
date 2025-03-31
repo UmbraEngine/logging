@@ -1,8 +1,5 @@
 #pragma once
 
-#include "core.h"
-#include "pch.h"
-
 const int LOG_LEVEL_TRACE = 0;
 const int LOG_LEVEL_DEBUG = 1;
 const int LOG_LEVEL_INFO = 2;
@@ -44,14 +41,35 @@ public:
     return *this;
   }
 
-  void log(LogLevel level, std::string_view message);
+  template <typename... Args>
+  void trace(std::string_view message, Args &&...args) {
+    log(LogLevel::Trace, message, std::forward<Args>(args)...);
+  }
 
-  void trace(std::string_view message);
-  void debug(std::string_view message);
-  void info(std::string_view message);
-  void warning(std::string_view message);
-  void error(std::string_view message);
-  void fatal(std::string_view message);
+  template <typename... Args>
+  void debug(std::string_view message, Args &&...args) {
+    log(LogLevel::Debug, message, std::forward<Args>(args)...);
+  }
+
+  template <typename... Args>
+  void info(std::string_view message, Args &&...args) {
+    log(LogLevel::Info, message, std::forward<Args>(args)...);
+  }
+
+  template <typename... Args>
+  void warning(std::string_view message, Args &&...args) {
+    log(LogLevel::Warning, message, std::forward<Args>(args)...);
+  }
+
+  template <typename... Args>
+  void error(std::string_view message, Args &&...args) {
+    log(LogLevel::Error, message, std::forward<Args>(args)...);
+  }
+
+  template <typename... Args>
+  void fatal(std::string_view message, Args &&...args) {
+    log(LogLevel::Fatal, message, std::forward<Args>(args)...);
+  }
 
   bool enableDebugging();
   bool disableDebugging();
@@ -66,6 +84,26 @@ private:
   [[nodiscard]] bool getDebugEnabled() const;
   void setColor(LogLevel level);
   void resetColor();
+  std::string getLevelString(LogLevel level);
+  std::string getTimestamp();
+
+  template <typename... Args>
+  void log(LogLevel level, std::string_view message, Args &&...args) {
+    if (Logger::shouldLogMessage(level)) {
+      std::string levelString = this->getLevelString(level);
+      std::string loggerName = "[" + this->name + "] ";
+      if (this->logFile.is_open()) {
+        this->logFile << this->getTimestamp() << loggerName << levelString
+                      << std::format(message, std::forward<Args>(args)...)
+                      << std::endl;
+      }
+      Logger::setColor(level);
+      std::cout << this->getTimestamp() << loggerName << levelString
+                << std::format(message, std::forward<Args>(args)...)
+                << std::endl;
+      Logger::resetColor();
+    }
+  };
 };
 } // namespace Logging
 } // namespace Umbra
