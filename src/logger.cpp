@@ -99,7 +99,7 @@ std::string Logger::getTimestamp()
   return std::string(timestamp);
 }
 
-void Logger::log(LogLevel level, std::string_view formattedMessage)
+void Logger::log(LogLevel level, std::string formattedMessage)
 {
   if (Logger::shouldLogMessage(level)) {
     std::string levelString = this->getLevelString(level);

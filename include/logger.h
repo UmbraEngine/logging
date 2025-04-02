@@ -46,37 +46,37 @@ class Logger {
   }
 
   template <typename... Args>
-  void trace(std::string_view message, Args&&... args)
+  void trace(std::string message, Args&&... args)
   {
     logFormattedString(LogLevel::Trace, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void debug(std::string_view message, Args&&... args)
+  void debug(std::string message, Args&&... args)
   {
     logFormattedString(LogLevel::Debug, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void info(std::string_view message, Args&&... args)
+  void info(std::string message, Args&&... args)
   {
     logFormattedString(LogLevel::Info, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void warning(std::string_view message, Args&&... args)
+  void warning(std::string message, Args&&... args)
   {
     logFormattedString(LogLevel::Warning, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void error(std::string_view message, Args&&... args)
+  void error(std::string message, Args&&... args)
   {
     logFormattedString(LogLevel::Error, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void fatal(std::string_view message, Args&&... args)
+  void fatal(std::string message, Args&&... args)
   {
     logFormattedString(LogLevel::Fatal, message, std::forward<Args>(args)...);
   }
@@ -98,13 +98,13 @@ class Logger {
   std::string getTimestamp();
 
   template <typename... Args>
-  void logFormattedString(LogLevel level, std::string_view message, Args&&... args)
+  void logFormattedString(LogLevel level, std::string message, Args&&... args)
   {
-    std::string formattedString = std::format(std::string(message), std::forward<Args>(args)...);
+    const auto formattedString = std::format(message, std::forward<Args>(args)...);
     this->log(level, formattedString);
   };
 
-  void log(LogLevel level, std::string_view formattedMessage);
+  void log(LogLevel level, std::string formattedMessage);
 };
 }  // namespace Logging
 }  // namespace Umbra
