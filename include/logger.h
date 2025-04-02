@@ -98,8 +98,9 @@ class Logger {
   std::string getTimestamp();
 
   template <typename... Args>
-  void logFormattedString(LogLevel level, std::string message, Args&&... args)
+  void logFormattedString(LogLevel level, const std::string message, Args&&... args)
   {
+
     const auto formattedString = std::format(message, std::forward<Args>(args)...);
     this->log(level, formattedString);
   };
