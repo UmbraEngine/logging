@@ -2,6 +2,7 @@
 
 #include "core.h"
 #include "logger.h"
+#include "pch.h"
 
 namespace Umbra {
 namespace Logging {

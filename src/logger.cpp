@@ -72,7 +72,6 @@ std::string Logger::getLevelString(LogLevel level)
     // TODO: Add Tracing?
     case LogLevel::Trace:
       return "[TRACE]: ";
-      return "[TRACE]: ";
     case LogLevel::Debug:
       return "[DEBUG]: ";
     case LogLevel::Info:
