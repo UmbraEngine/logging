@@ -1,5 +1,7 @@
 #pragma once
 
+#include <format>
+#include <utility>
 #include "core.h"
 #include "pch.h"
 
@@ -98,12 +100,9 @@ class Logger {
   std::string getTimestamp();
 
   template <typename... Args>
-  void logFormattedString(LogLevel level, const std::string& message, Args&&... args)
+  void logFormattedString(LogLevel level, const std::string& format, Args&&... args)
   {
-    std::stringstream ss;
-    ss << message;
-    ((ss << std::forward<Args>(args)), ...);
-    const std::string formattedString = ss.str();
+    std::string formattedString = std::format(format, std::forward<P>(args)...);
     this->log(level, formattedString);
   };
 
