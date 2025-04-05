@@ -8,7 +8,7 @@ namespace Umbra {
 namespace Logging {
 class Log {
  public:
-  UMBRA_API static void init();
+  UMBRA_API static void init(bool enableClientDebugLogging = true);
   UMBRA_API inline static std::shared_ptr<Logger>& getCoreLogger() { return CoreLogger; };
   UMBRA_API inline static std::shared_ptr<Logger>& getClientLogger() { return ClientLogger; }
 
