@@ -48,37 +48,37 @@ class Logger {
   }
 
   template <typename... Args>
-  void trace(std::string message, Args&&... args)
+  void trace(const std::format_string<Args...> message, Args&&... args)
   {
     logFormattedString(LogLevel::Trace, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void debug(std::string message, Args&&... args)
+  void debug(const std::format_string<Args...> message, Args&&... args)
   {
     logFormattedString(LogLevel::Debug, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void info(std::string message, Args&&... args)
+  void info(const std::format_string<Args...> message, Args&&... args)
   {
     logFormattedString(LogLevel::Info, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void warning(std::string message, Args&&... args)
+  void warning(const std::format_string<Args...> message, Args&&... args)
   {
     logFormattedString(LogLevel::Warning, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void error(std::string message, Args&&... args)
+  void error(const std::format_string<Args...> message, Args&&... args)
   {
     logFormattedString(LogLevel::Error, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void fatal(std::string message, Args&&... args)
+  void fatal(const std::format_string<Args...> message, Args&&... args)
   {
     logFormattedString(LogLevel::Fatal, message, std::forward<Args>(args)...);
   }

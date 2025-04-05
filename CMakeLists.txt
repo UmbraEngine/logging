@@ -11,6 +11,14 @@ add_library(UmbraLogging STATIC
   src/logger.cpp
 )
 
+add_executable(test_UmbraLogging 
+  test/test_main.cpp
+  src/log.cpp
+  src/logger.cpp
+)
+
+target_link_libraries(test_UmbraLogging PRIVATE UmbraLogging)
+
 include(GNUInstallDirs)
 
 target_include_directories(UmbraLogging PUBLIC
