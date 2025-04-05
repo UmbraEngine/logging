@@ -100,7 +100,7 @@ class Logger {
   std::string getTimestamp();
 
   template <typename... Args>
-  void logFormattedString(LogLevel level, const std::string& format, Args&&... args)
+  void logFormattedString(LogLevel level, const const std::format_string<Args...> format, Args&&... args)
   {
     std::string formattedString = std::format(format, std::forward<Args>(args)...);
     this->log(level, formattedString);
